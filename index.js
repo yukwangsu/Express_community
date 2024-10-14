@@ -68,27 +68,23 @@ app.post("/api/users/login", (req, res) => {
 //middleware: auth 를 수행한 뒤 (req, res)=>{} 실행
 app.get("/api/users/auth", auth, (req, res) => {
   //여기까지 미들웨어를 통과해 왔다는 얘기는 authentication 이 True라는 말.
-  res
-    .cookie("userinfo", req.user)
-    .status(200)
-    .json({
-      _id: req.user._id,
-      isAdmin: req.user.role === 0 ? false : true,
-      isAuth: true,
-      email: req.user.email,
-      name: req.user.name,
-      lastname: req.user,
-      role: req.user.role,
-      image: req.user.image,
-    });
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user,
+    role: req.user.role,
+    image: req.user.image,
+  });
 });
 
-app.post("/api/articles/post", (req, res) => {
-  const userinfo = req.cookies.userinfo;
+app.post("/api/articles/post", auth, (req, res) => {
   const article = new Article({
     title: req.body.title,
     content: req.body.content,
-    author: userinfo._id,
+    author: req.user._id,
   });
 
   article
