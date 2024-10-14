@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 const { auth } = require("./middleware/auth");
 const { User } = require("./modles/User");
+const { Article } = require("./modles/Article");
 
 //application/x-www-form-urlencoded 타입으로 된 것을 분석해서 가져올 수 있게함.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,13 +33,6 @@ app.post("/api/users/register", (req, res) => {
     .save()
     .then(() => res.status(200).json({ success: true }))
     .catch((err) => res.send(400).json({ success: false, msg: err }));
-
-  // user.save((err, userInfo) => {
-  //   if (err) return res.json({ success: false, err });
-  //   return res.status(200).json({
-  //     success: true,
-  //   });
-  // });
 });
 
 app.post("/api/users/login", (req, res) => {
@@ -74,16 +68,33 @@ app.post("/api/users/login", (req, res) => {
 //middleware: auth 를 수행한 뒤 (req, res)=>{} 실행
 app.get("/api/users/auth", auth, (req, res) => {
   //여기까지 미들웨어를 통과해 왔다는 얘기는 authentication 이 True라는 말.
-  res.status(200).json({
-    _id: req.user._id,
-    isAdmin: req.user.role === 0 ? false : true,
-    isAuth: true,
-    email: req.user.email,
-    name: req.user.name,
-    lastname: req.user,
-    role: req.user.role,
-    image: req.user.image,
+  res
+    .cookie("userinfo", req.user)
+    .status(200)
+    .json({
+      _id: req.user._id,
+      isAdmin: req.user.role === 0 ? false : true,
+      isAuth: true,
+      email: req.user.email,
+      name: req.user.name,
+      lastname: req.user,
+      role: req.user.role,
+      image: req.user.image,
+    });
+});
+
+app.post("/api/articles/post", (req, res) => {
+  const userinfo = req.cookies.userinfo;
+  const article = new Article({
+    title: req.body.title,
+    content: req.body.content,
+    author: userinfo._id,
   });
+
+  article
+    .save()
+    .then(() => res.status(200).json({ success: true }))
+    .catch((err) => res.status(400).json({ success: false, msg: err }));
 });
 
 app.listen(port, () => {
