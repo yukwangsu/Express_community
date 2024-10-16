@@ -24,7 +24,11 @@ app.get("/", (req, res) => {
   res.send("Hello World! nodemon added!!");
 });
 
-app.post("/api/users/register", (req, res) => {
+app.get("/hello", (req, res) => {
+  res.send("안녕하세요 ~");
+});
+
+app.post("/users/register", (req, res) => {
   //회원 가입 할 때 필요한 정보들을 client에서 가져오면
   //그것들을 데이터 베이스에 넣어준다.
   const user = new User(req.body);
@@ -35,7 +39,7 @@ app.post("/api/users/register", (req, res) => {
     .catch((err) => res.send(400).json({ success: false, msg: err }));
 });
 
-app.post("/api/users/login", (req, res) => {
+app.post("/users/login", (req, res) => {
   //요청된 이메일을 데이터베이스에 있는지 찾는다.
   //findOne: mongo db에서 제공하는 메소드
   User.findOne({ email: req.body.email })
@@ -66,7 +70,7 @@ app.post("/api/users/login", (req, res) => {
 });
 
 //middleware: auth 를 수행한 뒤 (req, res)=>{} 실행
-app.get("/api/users/auth", auth, (req, res) => {
+app.get("/users/auth", auth, (req, res) => {
   //여기까지 미들웨어를 통과해 왔다는 얘기는 authentication 이 True라는 말.
   res.status(200).json({
     _id: req.user._id,
@@ -80,7 +84,13 @@ app.get("/api/users/auth", auth, (req, res) => {
   });
 });
 
-app.post("/api/articles/post", auth, (req, res) => {
+app.get("/users/logout", auth, (req, res) => {
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
+    .then(() => res.status(200).send({ success: true }))
+    .catch((err) => res.json({ success: false, err }));
+});
+
+app.post("/articles/post", auth, (req, res) => {
   const article = new Article({
     title: req.body.title,
     content: req.body.content,
