@@ -37,6 +37,143 @@
   word-wrap: break-word; /* 긴 단어 줄바꿈 */
 }
 
+* {
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.menu {
+  width: 150px;
+  overflow: hidden;
+  position: fixed; /* 화면에 고정 */
+  top: 24px; /* 화면 위에서 50px 아래 */
+  right: 0%; /* 화면 오른쪽에서 50px 왼쪽 */
+}
+
+.menu > li {
+  width: 100%;
+  float: left;
+  text-align: center;
+  line-height: 40px;
+  background-color: #5778ff;
+}
+
+.menu a {
+  color: #fff;
+}
+
+.submenu > li {
+  line-height: 50px;
+  background-color: #94a9ff;
+}
+
+.submenu {
+  height: 0; /*ul의 높이를 안보이게 처리*/
+  overflow: hidden;
+}
+
+.menu > li:hover {
+  background-color: #94a9ff;
+  transition-duration: 0.5s;
+}
+
+.menu > li:hover .submenu {
+  height: 100px; /*서브메뉴 li한개의 높이 50*5*/
+  transition-duration: 1s;
+}
+
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 65px;
+  min-height: 65px;
+  width: 100%;
+  font-size: 23px;
+  font-weight: bold;
+  color: white;
+  background-color: #5778ff;
+  margin-bottom: 40px;
+}
+
+.landing-page-title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.post-button-back {
+  margin-bottom: 40px;
+}
+
+.post-button {
+  background-color: white; /* 기본 배경색 흰색 */
+  color: black; /* 글자색 */
+  border: 3px solid #5778ff; /* 테두리 색상 */
+  padding: 10px 20px; /* 패딩으로 버튼 크기 조절 */
+  font-size: 16px; /* 글자 크기 */
+  border-radius: 8px; /* 둥근 테두리 */
+  cursor: pointer; /* 마우스 포인터 */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* 배경색과 크기 변화에 애니메이션 적용 */
+  outline: none; /* 클릭 시 테두리 제거 */
+}
+
+.post-button:hover {
+  background-color: #5778ff; /* hover 시 배경색 */
+  color: white; /* hover 시 글자색 흰색 */
+  transform: scale(1.05); /* hover 시 크기 약간 증가 */
+}
+
+.article-back {
+  width: 60%;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: scroll;
+  scrollbar-width: none; /* Firefox에서 스크롤 바 숨김 */
+  -ms-overflow-style: none; /* IE와 Edge에서 스크롤 바 숨김 */
+}
+
+.article-back::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera에서 스크롤 바 숨김 */
+}
+
+.article {
+  width: 100%;
+  background-color: aliceblue;
+  border-radius: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.article-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.article-content {
+  font-size: 15px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

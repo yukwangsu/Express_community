@@ -97,11 +97,19 @@ app.post("/articles/post", auth, (req, res) => {
     author: req.user._id,
     writer: req.user.name,
   });
-
   article
     .save()
     .then(() => res.status(200).json({ success: true }))
     .catch((err) => res.status(400).json({ success: false, msg: err }));
+});
+
+app.get("/articles/load", (req, res) => {
+  Article.find({})
+    .then((response) => {
+      // console.log(response);
+      res.status(200).json(response);
+    })
+    .catch((err) => res.json({ success: false, message: err.message }));
 });
 
 app.listen(port, () => {

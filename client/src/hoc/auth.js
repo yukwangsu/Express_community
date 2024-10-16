@@ -17,8 +17,6 @@ const Auth = (SpecificComponent, option, adminRoute = null) => {
       axios
         .get("/api/users/auth")
         .then((reponse) => {
-          console.log(reponse);
-
           if (adminRoute && !reponse.isAdmin) {
             navigate("/");
           } else {
@@ -36,7 +34,7 @@ const Auth = (SpecificComponent, option, adminRoute = null) => {
             alert("로그인이 필요합니다.");
           }
         });
-    });
+    }, []);
     return <SpecificComponent />;
   }
   return AuthenticationCheck;

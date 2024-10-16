@@ -3,7 +3,7 @@ import React from "react";
 function NavBar() {
   return (
     <div>
-      <div>pangsu`s community</div>
+      <div className="nav-bar">Pangsu 커뮤니티</div>
     </div>
   );
 }

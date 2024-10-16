@@ -27,7 +27,9 @@ function PostingPage(props) {
       .post("/api/articles/post", body)
       .then(() => {
         navigate("/");
-        alert("작성하신 글이 정상적으로 등록되었습니다.");
+        setTimeout(() => {
+          alert("작성하신 글이 정상적으로 등록됐습니다.");
+        }, 500);
       })
       .catch((e) => {
         alert("Error");
