@@ -13,6 +13,7 @@ const articleSchma = mongoose.Schema(
       required: true,
     },
     author: { type: String, required: true },
+    writer: { type: String, required: true },
   },
   { timestamps: true }
 );

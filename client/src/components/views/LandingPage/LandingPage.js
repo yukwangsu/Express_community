@@ -18,6 +18,14 @@ function LandingPage() {
       .catch(() => alert("로그아웃 에러"));
   };
 
+  const onClickLoginHandler = (e) => {
+    navigate("/login");
+  };
+
+  const onClickPostingHandler = (e) => {
+    navigate("/posting");
+  };
+
   return (
     <div
       style={{
@@ -32,6 +40,8 @@ function LandingPage() {
       <h2>시작 페이지</h2>
 
       <button onClick={onClickLogoutHandler}>로그아웃</button>
+      <button onClick={onClickLoginHandler}>로그인</button>
+      <button onClick={onClickPostingHandler}>글 작성하기</button>
     </div>
   );
 }

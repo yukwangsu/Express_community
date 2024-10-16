@@ -28,6 +28,15 @@
   color: #61dafb;
 }
 
+.Post-content {
+  width: 300px; /* 너비 */
+  height: 150px; /* 높이 */
+  padding: 10px; /* 내부 여백 */
+  font-size: 16px; /* 글자 크기 */
+  white-space: normal; /* 자동 줄바꿈 활성화 */
+  word-wrap: break-word; /* 긴 단어 줄바꿈 */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

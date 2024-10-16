@@ -95,6 +95,7 @@ app.post("/articles/post", auth, (req, res) => {
     title: req.body.title,
     content: req.body.content,
     author: req.user._id,
+    writer: req.user.name,
   });
 
   article

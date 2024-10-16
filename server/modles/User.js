@@ -7,16 +7,19 @@ const userSchma = mongoose.Schema({
   name: {
     type: String,
     maxlength: 50,
+    required: true,
   },
   email: {
     type: String,
     //공백 제거
     trim: true,
     unique: 1,
+    required: true,
   },
   password: {
     type: String,
     minlength: 5,
+    required: true,
   },
   lastname: {
     type: String,

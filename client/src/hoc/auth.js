@@ -29,10 +29,11 @@ const Auth = (SpecificComponent, option, adminRoute = null) => {
         })
         .catch(() => {
           //auth가 실패했는데(토큰이 없는데) option이 true인 페이지에 접속하면
-          // landing 페이지로 이동
+          // login 페이지로 이동
           //auth가 실패했는데 option이 false인 페이지에 접속하면 그대로 이동.
           if (option) {
-            navigate("/");
+            navigate("/login");
+            alert("로그인이 필요합니다.");
           }
         });
     });
