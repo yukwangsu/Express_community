@@ -31,6 +31,9 @@ function LoginPage(props) {
         console.log(e);
       });
   };
+  const onRegisterHandler = (e) => {
+    navigate("/register");
+  };
 
   return (
     <div
@@ -59,6 +62,9 @@ function LoginPage(props) {
 
         <button type="submit">Login</button>
       </form>
+      <button className="register-button" onClick={onRegisterHandler}>
+        SignUp
+      </button>
     </div>
   );
 }

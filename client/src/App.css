@@ -94,6 +94,7 @@ a {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-width: 700px;
   height: 100vh;
 }
 
@@ -105,11 +106,12 @@ a {
   height: 65px;
   min-height: 65px;
   width: 100%;
+  min-width: 700px;
   font-size: 23px;
   font-weight: bold;
   color: white;
   background-color: #5778ff;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .landing-page-title {
@@ -118,7 +120,7 @@ a {
 }
 
 .post-button-back {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .post-button {
@@ -140,8 +142,9 @@ a {
 }
 
 .article-back {
-  width: 60%;
-  margin-bottom: 50px;
+  width: 50%;
+  min-width: 550px;
+  padding-bottom: 100px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -154,9 +157,24 @@ a {
   display: none; /* Chrome, Safari, Opera에서 스크롤 바 숨김 */
 }
 
+.article-back::after {
+  content: "";
+  position: absolute;
+  top: calc(100% - 100px); /* 흐려지기 시작하는 부분 */
+  left: 0;
+  width: 100%;
+  height: 100px; /* 흐려지는 영역 높이 */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  pointer-events: none; /* 가상의 요소가 상호작용을 방해하지 않도록 */
+}
+
 .article {
   width: 100%;
-  background-color: aliceblue;
+  background-color: rgb(206, 221, 235);
   border-radius: 20px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -165,13 +183,34 @@ a {
 }
 
 .article-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+}
+
+.article-second-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .article-content {
   font-size: 15px;
+  width: 300px;
+  min-width: 300px;
+}
+
+.article-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  font-size: 13px;
+  width: 200px;
+  min-width: 200px;
+}
+
+.register-button {
+  margin: 10px;
 }
 
 @keyframes App-logo-spin {

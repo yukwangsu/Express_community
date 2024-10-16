@@ -52,10 +52,10 @@ function LandingPage() {
     <div className="landing-page">
       <div className="nav-bar">Pangsu 커뮤니티</div>
 
-      <ul class="menu">
+      <ul className="menu">
         <li>
-          <a href="#">MENU</a>
-          <ul class="submenu">
+          <a href="">MENU</a>
+          <ul className="submenu">
             <li>
               <a
                 href=""
@@ -65,7 +65,7 @@ function LandingPage() {
               </a>
             </li>
             <li>
-              <a href="#">내가 쓴 글</a>
+              <a href="">내가 쓴 글</a>
             </li>
           </ul>
         </li>
@@ -80,9 +80,12 @@ function LandingPage() {
       </div>
 
       <div className="article-back">
-        {articles.map((element) => (
-          <ListElement key={element._id} item={element}></ListElement>
-        ))}
+        {articles
+          .slice()
+          .reverse()
+          .map((element) => (
+            <ListElement key={element._id} item={element}></ListElement>
+          ))}
       </div>
     </div>
   );
@@ -92,9 +95,39 @@ function ListElement({ item }) {
   return (
     <div className="article">
       <div className="article-title">{item.title}</div>
-      <div className="article-content">{item.content}</div>
+      <div className="article-second-line">
+        <div className="article-content">{item.content}</div>
+        <div className="article-info">
+          {formatDate(item.createdAt) + " | " + item.writer}
+        </div>
+      </div>
     </div>
   );
+}
+
+function formatDate(isoString) {
+  const date = new Date(isoString); // ISO 문자열을 Date 객체로 변환
+  const now = new Date(); // 현재 시간 가져오기
+
+  // 날짜 부분만 비교하기 위해 년, 월, 일을 추출
+  const isToday =
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate();
+
+  if (isToday) {
+    // 오늘이면 시간과 분을 반환
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    console.log(`${hours}:${minutes}`);
+    return `${hours} : ${minutes}`;
+  } else {
+    // 오늘이 아니면 월과 일을 반환
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    console.log(`${month}-${day}`);
+    return `${month}월 ${day}일`;
+  }
 }
 
 export default Auth(LandingPage, null);
