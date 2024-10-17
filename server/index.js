@@ -7,6 +7,7 @@ const config = require("./config/key");
 const { auth } = require("./middleware/auth");
 const { User } = require("./modles/User");
 const { Article } = require("./modles/Article");
+const { Like } = require("./modles/Like");
 
 //application/x-www-form-urlencoded 타입으로 된 것을 분석해서 가져올 수 있게함.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -106,10 +107,72 @@ app.post("/articles/post", auth, (req, res) => {
 app.get("/articles/load", (req, res) => {
   Article.find({})
     .then((response) => {
-      // console.log(response);
       res.status(200).json(response);
     })
     .catch((err) => res.json({ success: false, message: err.message }));
+});
+
+app.post("/articles/find", (req, res) => {
+  Article.findOne({ _id: req.body._id })
+    .then((article) => {
+      if (!article) {
+        throw new Error("can not find article.");
+      } else {
+        res.status(200).json(article);
+      }
+    })
+    .catch((err) => {
+      res.json({ success: false, message: err.message });
+    });
+});
+
+app.post("/articles/like", auth, (req, res) => {
+  Like.findOne({ userId: req.user._id, articleId: req.body._id })
+    .then((history) => {
+      if (!history) {
+        const like = new Like({
+          userId: req.user._id,
+          articleId: req.body._id,
+        });
+        like
+          .save()
+          .then(() => {
+            Article.findOneAndUpdate(
+              { _id: req.body._id },
+              { $inc: { like: 1 } }
+            )
+              .then(() => {
+                res.status(200).json({ success: true });
+              })
+              .catch((err) => {
+                res.status(500).json({ success: false, message: err.message });
+              });
+          })
+          .catch((err) => {
+            res.status(500).json({ success: false, message: err.message });
+          });
+      } else {
+        Like.deleteOne({ userId: req.user._id, articleId: req.body._id })
+          .then(() => {
+            Article.findOneAndUpdate(
+              { _id: req.body._id },
+              { $inc: { like: -1 } }
+            )
+              .then(() => {
+                res.status(200).json({ success: true });
+              })
+              .catch((err) => {
+                res.status(500).json({ success: false, message: err.message });
+              });
+          })
+          .catch((err) => {
+            res.status(500).json({ success: false, message: err.message });
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ success: false, message: err.message });
+    });
 });
 
 app.listen(port, () => {

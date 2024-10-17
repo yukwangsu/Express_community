@@ -92,14 +92,33 @@ function LandingPage() {
 }
 
 function ListElement({ item }) {
+  const navigate = useNavigate();
+  //detail 페이지에 article id를 전달
+  const onClickArticleHandler = (id) => {
+    console.log(id);
+    navigate("/detail", { state: { articleId: id } });
+  };
+
   return (
-    <div className="article">
-      <div className="article-title">{item.title}</div>
-      <div className="article-second-line">
-        <div className="article-content">{item.content}</div>
-        <div className="article-info">
-          {formatDate(item.createdAt) + " | " + item.writer}
-        </div>
+    <div
+      className="article"
+      onClick={() => {
+        onClickArticleHandler(item._id);
+      }}
+    >
+      <div className="article-title">
+        {/* //최대 25자까지만 보여주기 */}
+        {item.title.length > 25 ? item.title.slice(0, 25) + "..." : item.title}
+      </div>
+
+      <div className="article-content">
+        {/* //최대 80자까지만 보여주기 */}
+        {item.content.length > 80
+          ? item.content.slice(0, 80) + "..."
+          : item.content}
+      </div>
+      <div className="article-info">
+        {formatDate(item.createdAt) + " | " + item.writer}
       </div>
     </div>
   );
@@ -119,13 +138,11 @@ function formatDate(isoString) {
     // 오늘이면 시간과 분을 반환
     const hours = date.getHours().toString().padStart(2, "0");
     const minutes = date.getMinutes().toString().padStart(2, "0");
-    console.log(`${hours}:${minutes}`);
     return `${hours} : ${minutes}`;
   } else {
     // 오늘이 아니면 월과 일을 반환
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const day = date.getDate().toString().padStart(2, "0");
-    console.log(`${month}-${day}`);
     return `${month}월 ${day}일`;
   }
 }

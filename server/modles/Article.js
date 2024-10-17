@@ -14,6 +14,7 @@ const articleSchma = mongoose.Schema(
     },
     author: { type: String, required: true },
     writer: { type: String, required: true },
+    like: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

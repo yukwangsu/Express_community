@@ -18,6 +18,16 @@ function PostingPage(props) {
   const onPostingHandler = (e) => {
     e.preventDefault();
 
+    //예외처리
+    if (Title.length > 100) {
+      alert("글 제목의 최대 길이는 100자입니다.");
+      return;
+    }
+    if (Content.length > 500) {
+      alert("글 내용의 최대 길이는 500자입니다.");
+      return;
+    }
+
     let body = {
       title: Title,
       content: Content,
