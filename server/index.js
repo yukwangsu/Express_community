@@ -8,6 +8,7 @@ const { auth } = require("./middleware/auth");
 const { User } = require("./modles/User");
 const { Article } = require("./modles/Article");
 const { Like } = require("./modles/Like");
+const { Comment } = require("./modles/Comment");
 
 //application/x-www-form-urlencoded 타입으로 된 것을 분석해서 가져올 수 있게함.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -171,6 +172,47 @@ app.post("/articles/like", auth, (req, res) => {
       }
     })
     .catch((err) => {
+      res.status(500).json({ success: false, message: err.message });
+    });
+});
+
+app.post("/articles/add/comment", auth, (req, res) => {
+  const comment = new Comment({
+    content: req.body.content,
+    articleId: req.body.articleId,
+    authorId: req.user._id,
+    writerName: req.user.name,
+  });
+  comment
+    .save()
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    // .then((saved) => {
+    //   const commentRel = new CommentRel({
+    //     articleId: req.body.articleId,
+    //     commentId: saved._id,
+    //   });
+    //   commentRel
+    //     .save()
+    //     .then(() => {
+    //       res.status(200).json({ success: true });
+    //     })
+    //     .catch((err) => {
+    //       res.status(500).json({ success: false, message: err.message });
+    //     });
+    // })
+    .catch((err) => {
+      res.status(500).json({ success: false, message: err.message });
+    });
+});
+
+app.post("/articles/load/comment", (req, res) => {
+  Comment.find({ articleId: req.body.articleId })
+    .then((response) => {
+      res.status(200).json(response);
+    })
+    .catch(() => {
       res.status(500).json({ success: false, message: err.message });
     });
 });

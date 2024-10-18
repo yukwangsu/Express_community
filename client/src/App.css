@@ -201,6 +201,14 @@ a {
   margin: 10px;
 }
 
+.detail-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 700px;
+}
+
 .detail-back {
   width: 780px;
   display: flex;
@@ -208,6 +216,13 @@ a {
   border: 2px solid;
   border-color: #94a9ff;
   border-radius: 10px;
+  margin-bottom: 50px;
+}
+
+.detail-main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   padding: 15px;
 }
 
@@ -236,10 +251,12 @@ a {
 
 .detail-user-name {
   font-size: 1rem;
+  font-weight: 600;
 }
 
 .detail-time {
   font-size: 0.9rem;
+  color: grey;
 }
 
 .detail-title {
@@ -251,6 +268,64 @@ a {
 .detail-content {
   font-size: 16px;
   padding-bottom: 15px;
+}
+
+.detail-line {
+  border: 0;
+  height: 2px;
+  background-color: #94a9ff;
+}
+
+.detail-comment-back {
+  padding: 15px;
+}
+
+.detail-comments {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.detail-comment {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-comment-user-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.detail-comment-user-image {
+  width: 25px;
+  aspect-ratio: 1/1;
+  margin-bottom: 6px;
+  margin-right: 6px;
+}
+
+.detail-comment-user-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-comment-user-name {
+  font-weight: 600;
+}
+
+.detail-comment-content {
+  padding-bottom: 5px;
+}
+
+.detail-comment-time {
+  font-size: 0.9rem;
+  color: grey;
+  margin-bottom: 12px;
+}
+
+.detail-input-comment {
+  padding: 10px;
+  width: 50%;
 }
 
 @keyframes App-logo-spin {
