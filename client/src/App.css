@@ -394,6 +394,7 @@ a {
 
 .detail-comment-content {
   padding-bottom: 5px;
+  line-height: 1.5; /* 줄 간격을 폰트 크기의 1.5배로 설정 */
 }
 
 .detail-comment-time {
