@@ -95,7 +95,6 @@ function ListElement({ item }) {
   const navigate = useNavigate();
   //detail 페이지에 article id를 전달
   const onClickArticleHandler = (id) => {
-    console.log(id);
     navigate("/detail", { state: { articleId: id } });
   };
 
@@ -118,7 +117,7 @@ function ListElement({ item }) {
           : item.content}
       </div>
       <div className="article-info">
-        {formatDate(item.createdAt) + " | " + item.writer}
+        {" | " + formatDate(item.createdAt) + " | " + item.writer}
       </div>
     </div>
   );
@@ -135,12 +134,29 @@ function formatDate(isoString) {
     date.getDate() === now.getDate();
 
   if (isToday) {
-    // 오늘이면 시간과 분을 반환
+    // 1. 글이 올라온지 한 시간도 안 됐다면 n분 전으로 표시
+    const inOneHour =
+      date.getHours() === now.getHours() ||
+      (date.getHours() + 1 === now.getHours() &&
+        date.getMinutes() > now.getMinutes());
+    if (inOneHour) {
+      var m = now.getMinutes() - date.getMinutes();
+      if (m === 0) {
+        // 2. 글이 방금 올라왔다면(1분도 지나지 않았을 때)
+        return "방금";
+      }
+      if (m < 0) {
+        m += 60;
+      }
+      const mm = m.toString();
+      return `${mm}분 전`;
+    }
+    // 3. 오늘이면 시간과 분을 반환
     const hours = date.getHours().toString().padStart(2, "0");
     const minutes = date.getMinutes().toString().padStart(2, "0");
     return `${hours} : ${minutes}`;
   } else {
-    // 오늘이 아니면 월과 일을 반환
+    // 4. 오늘이 아니면 월과 일을 반환
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const day = date.getDate().toString().padStart(2, "0");
     return `${month}월 ${day}일`;

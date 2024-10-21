@@ -207,22 +207,17 @@ app.post("/articles/add/comment", auth, (req, res) => {
   comment
     .save()
     .then(() => {
-      res.status(200).json({ success: true });
+      Article.findOneAndUpdate(
+        { _id: req.body.articleId },
+        { $inc: { commentCnt: 1 } }
+      )
+        .then(() => {
+          res.status(200).json({ success: true });
+        })
+        .catch((err) => {
+          res.status(500).json({ success: false, message: err.message });
+        });
     })
-    // .then((saved) => {
-    //   const commentRel = new CommentRel({
-    //     articleId: req.body.articleId,
-    //     commentId: saved._id,
-    //   });
-    //   commentRel
-    //     .save()
-    //     .then(() => {
-    //       res.status(200).json({ success: true });
-    //     })
-    //     .catch((err) => {
-    //       res.status(500).json({ success: false, message: err.message });
-    //     });
-    // })
     .catch((err) => {
       res.status(500).json({ success: false, message: err.message });
     });
