@@ -35,9 +35,9 @@ function RegisterPage(props) {
       axios
         .post("/api/users/register", body)
         .then(() => navigate("/login"))
-        .catch((e) => {
-          alert("Error");
-          console.log(e);
+        .catch((error) => {
+          alert(error.response.data.message);
+          console.log(error);
         });
     }
     //비밀번호 확인을 통과하지 못 했을 경우

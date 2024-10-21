@@ -63,7 +63,7 @@ function LoginPage(props) {
         <button type="submit">Login</button>
       </form>
       <button className="register-button" onClick={onRegisterHandler}>
-        SignUp
+        계정이 없다면? SignUp
       </button>
     </div>
   );

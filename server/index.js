@@ -33,12 +33,33 @@ app.get("/hello", (req, res) => {
 app.post("/users/register", (req, res) => {
   //회원 가입 할 때 필요한 정보들을 client에서 가져오면
   //그것들을 데이터 베이스에 넣어준다.
+
+  //비밀번호 최소길이 6자 이상
+  if (req.body.password.length < 6) {
+    return res
+      .status(400)
+      .json({ message: "비밀번호를 6자 이상 입력해주세요." });
+  }
+
+  //동일한 이메일이 존재하는 경우
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      if (user) {
+        return res.status(400).json({ message: "이미 존재하는 이메일입니다." });
+      }
+    })
+    .catch((err) => {
+      return res.status(400).json({ message: err.message });
+    });
+
   const user = new User(req.body);
 
   user
     .save()
     .then(() => res.status(200).json({ success: true }))
-    .catch((err) => res.send(400).json({ success: false, msg: err }));
+    .catch((err) =>
+      res.status(400).json({ success: false, message: err.message })
+    );
 });
 
 app.post("/users/login", (req, res) => {
