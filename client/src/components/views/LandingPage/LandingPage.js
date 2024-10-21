@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../../hoc/auth";
+import { MessageSquare, ThumbsUp } from "lucide-react";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -117,7 +118,17 @@ function ListElement({ item }) {
           : item.content}
       </div>
       <div className="article-info">
-        {" | " + formatDate(item.createdAt) + " | " + item.writer}
+        <div className="article-sub-info">
+          <div className="article-sub-info-vote">
+            <ThumbsUp size={13} color="red" />
+            <div>{item.like}</div>
+          </div>
+          <div className="article-sub-info-comment">
+            <MessageSquare size={13} color="#05BCBC" />
+            <div>{item.commentCnt}</div>
+          </div>
+        </div>
+        <div>{"| " + formatDate(item.createdAt) + " | " + item.writer}</div>
       </div>
     </div>
   );

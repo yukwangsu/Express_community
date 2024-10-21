@@ -201,11 +201,35 @@ a {
 .article-content {
   font-size: 15px;
   margin-bottom: 10px;
+  line-height: 1.5; /* 줄 간격을 폰트 크기의 1.5배로 설정 */
 }
 
 .article-info {
+  display: flex;
+  flex-direction: row;
   font-size: 13px;
   color: #a6a6a6;
+}
+
+.article-sub-info {
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+  margin-right: 5px;
+}
+
+.article-sub-info-vote {
+  display: flex;
+  flex-direction: row;
+  color: red;
+  gap: 3px;
+}
+
+.article-sub-info-comment {
+  display: flex;
+  flex-direction: row;
+  color: #05bcbc;
+  gap: 3px;
 }
 
 .register-button {
@@ -279,13 +303,13 @@ a {
 .detail-content {
   font-size: 16px;
   padding-bottom: 15px;
+  line-height: 1.5; /* 줄 간격을 폰트 크기의 1.5배로 설정 */
 }
 
 .detail-sub-info {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  margin-bottom: 16px;
 }
 
 .detail-sub-info-vote {
@@ -313,6 +337,7 @@ a {
   width: 80px;
   height: 35px;
   line-height: 35px;
+  margin-top: 16px;
   display: flex; /* 아이콘과 텍스트를 수평으로 배치 */
   align-items: center; /* 수직 정렬 */
   justify-content: center; /* 버튼 내에서 중앙 정렬 */

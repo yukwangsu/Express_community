@@ -261,15 +261,14 @@ function formatDate(isoString) {
       const mm = m.toString();
       return `${mm}분 전`;
     }
-  } else {
-    // 3. 한시간 이상 지났다면 날짜와 시간 모두 표시
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-
-    return `${month}/${day} ${hours}:${minutes}`;
   }
+  // 3. 한시간 이상 지났다면 날짜와 시간 모두 표시
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${month}/${day} ${hours}:${minutes}`;
 }
 
 export default Auth(ArticleDetailPage, true);
